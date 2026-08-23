@@ -27,17 +27,17 @@ INSERT INTO `item_template` (
 )
 VALUES (
     900000,
-    2,          -- Weapon
-    19,         -- Wand
+    12,         -- Quest Item / relic-style item
+    0,
     -1,
     'Shadow Wand',
     18356,
-    4,          -- Epic quality
+    4,
     32,
     1,
     0,
     0,
-    26,         -- Ranged / Wand inventory type
+    0,          -- Not equippable
     -1,
     -1,
     1,

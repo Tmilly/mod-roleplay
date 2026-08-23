@@ -1,0 +1,9 @@
+# Local module configuration
+conf/*.conf
+
+# IDE and operating-system files
+.idea/
+.vscode/
+*.user
+.DS_Store
+Thumbs.db

@@ -1,0 +1,42 @@
+[worldserver]
+
+###################################################################################################
+# ROLEPLAY MODULE
+###################################################################################################
+
+# Enable the roleplay module.
+# Default: 1
+Roleplay.Enable = 1
+
+# Character name eligible for the Lyon-specific Shadow Wand story.
+# Default: "Lyon"
+Roleplay.Lyon.CharacterName = "Lyon"
+
+# Item entry of the carried Shadow Wand relic.
+# Default: 900000
+Roleplay.Lyon.ShadowWandItemId = 900000
+
+###################################################################################################
+# LYON: SHADOW WAND MECHANICS
+###################################################################################################
+
+# Reduce incoming damage while the Shadow Wand is carried.
+Roleplay.Lyon.DarkAegis.Enable = 1
+Roleplay.Lyon.DarkAegis.DamageReductionPct = 3.0
+
+# Retaliate after taking nonzero damage. Spell 686 is the client-known Shadow Bolt spell.
+Roleplay.Lyon.DeathsReprisal.Enable = 1
+Roleplay.Lyon.DeathsReprisal.ChancePct = 5.0
+Roleplay.Lyon.DeathsReprisal.CooldownMs = 1000
+Roleplay.Lyon.DeathsReprisal.SpellId = 686
+Roleplay.Lyon.DeathsReprisal.BaseDamage = 25
+Roleplay.Lyon.DeathsReprisal.DamagePerLevel = 2
+
+# Prevent a lethal hit when this effect is available. Spell 48792 is Icebound Fortitude.
+Roleplay.Lyon.RefusalOfDeath.Enable = 1
+Roleplay.Lyon.RefusalOfDeath.ChancePct = 100.0
+Roleplay.Lyon.RefusalOfDeath.CooldownMs = 600000
+Roleplay.Lyon.RefusalOfDeath.SpellId = 48792
+
+# Send subtle system messages only to Lyon.
+Roleplay.Lyon.Messages.Personal = 1

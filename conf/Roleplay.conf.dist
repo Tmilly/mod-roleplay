@@ -29,6 +29,11 @@ Roleplay.Lyon.DeathsReprisal.Enable = 1
 Roleplay.Lyon.DeathsReprisal.ChancePct = 5.0
 Roleplay.Lyon.DeathsReprisal.CooldownMs = 1000
 Roleplay.Lyon.DeathsReprisal.SpellId = 900001
+
+# Client-known, visual-only NPC Shadow Bolt used after spell 900001 succeeds.
+# Set to 0 to disable the projectile. Spell 33335 has no power cost or damage effect.
+Roleplay.Lyon.DeathsReprisal.VisualSpellId = 33335
+
 Roleplay.Lyon.DeathsReprisal.BaseDamage = 25
 Roleplay.Lyon.DeathsReprisal.DamagePerLevel = 2
 

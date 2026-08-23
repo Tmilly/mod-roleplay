@@ -96,6 +96,9 @@ private:
         uint32 manaBefore = player->GetPower(POWER_MANA);
         SpellCastResult castResult = player->CastCustomSpell(
             config.DeathsReprisalSpellId, SPELLVALUE_BASE_POINT0, reprisalDamage, attacker, TRIGGERED_FULL_MASK);
+        if (castResult == SPELL_CAST_OK && config.DeathsReprisalVisualSpellId)
+            player->CastSpell(attacker, config.DeathsReprisalVisualSpellId, TRIGGERED_FULL_MASK);
+
         uint32 manaAfter = player->GetPower(POWER_MANA);
 
         if (config.DeathsReprisalDebugMana)

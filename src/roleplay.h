@@ -15,6 +15,7 @@ struct RoleplayConfig
     float DeathsReprisalChancePct = 5.0f;
     uint32 DeathsReprisalCooldownMs = 1000;
     uint32 DeathsReprisalSpellId = 900001;
+    uint32 DeathsReprisalVisualSpellId = 33335;
     uint32 DeathsReprisalBaseDamage = 25;
     uint32 DeathsReprisalDamagePerLevel = 2;
     bool DeathsReprisalDebugMana = true;

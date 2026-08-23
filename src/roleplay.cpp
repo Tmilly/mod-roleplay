@@ -28,6 +28,8 @@ public:
             sConfigMgr->GetOption<uint32>("Roleplay.Lyon.DeathsReprisal.CooldownMs", 1000);
         Config.DeathsReprisalSpellId =
             sConfigMgr->GetOption<uint32>("Roleplay.Lyon.DeathsReprisal.SpellId", 900001);
+        Config.DeathsReprisalVisualSpellId =
+            sConfigMgr->GetOption<uint32>("Roleplay.Lyon.DeathsReprisal.VisualSpellId", 33335);
         Config.DeathsReprisalBaseDamage =
             sConfigMgr->GetOption<uint32>("Roleplay.Lyon.DeathsReprisal.BaseDamage", 25);
         Config.DeathsReprisalDamagePerLevel =

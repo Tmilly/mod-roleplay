@@ -1,5 +1,5 @@
 DELETE FROM `item_template`
-WHERE (`entry` = 900000);
+WHERE `entry` = 32618;
 
 INSERT INTO `item_template` (
     `entry`,
@@ -26,18 +26,18 @@ INSERT INTO `item_template` (
     `VerifiedBuild`
 )
 VALUES (
-    900000,
-    12,         -- Quest Item / relic-style item
+    32618,
+    12,
     0,
     -1,
     'Shadow Wand',
-    18356,
+    45112,
     4,
     32,
     1,
     0,
     0,
-    0,          -- Not equippable
+    0,
     -1,
     -1,
     1,

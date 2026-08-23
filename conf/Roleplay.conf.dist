@@ -13,8 +13,8 @@ Roleplay.Enable = 1
 Roleplay.Lyon.CharacterName = "Lyon"
 
 # Item entry of the carried Shadow Wand relic.
-# Default: 900000
-Roleplay.Lyon.ShadowWandItemId = 900000
+# Default: 32618
+Roleplay.Lyon.ShadowWandItemId = 32618
 
 ###################################################################################################
 # LYON: SHADOW WAND MECHANICS

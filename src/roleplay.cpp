@@ -17,7 +17,7 @@ public:
     {
         Config.Enabled = sConfigMgr->GetOption<bool>("Roleplay.Enable", true);
         Config.LyonCharacterName = sConfigMgr->GetOption<std::string>("Roleplay.Lyon.CharacterName", "Lyon");
-        Config.ShadowWandItemId = sConfigMgr->GetOption<uint32>("Roleplay.Lyon.ShadowWandItemId", 900000);
+        Config.ShadowWandItemId = sConfigMgr->GetOption<uint32>("Roleplay.Lyon.ShadowWandItemId", 32618);
         Config.DarkAegisEnabled = sConfigMgr->GetOption<bool>("Roleplay.Lyon.DarkAegis.Enable", true);
         Config.DarkAegisDamageReductionPct =
             sConfigMgr->GetOption<float>("Roleplay.Lyon.DarkAegis.DamageReductionPct", 3.0f);

@@ -27,11 +27,13 @@ public:
         Config.DeathsReprisalCooldownMs =
             sConfigMgr->GetOption<uint32>("Roleplay.Lyon.DeathsReprisal.CooldownMs", 1000);
         Config.DeathsReprisalSpellId =
-            sConfigMgr->GetOption<uint32>("Roleplay.Lyon.DeathsReprisal.SpellId", 686);
+            sConfigMgr->GetOption<uint32>("Roleplay.Lyon.DeathsReprisal.SpellId", 900001);
         Config.DeathsReprisalBaseDamage =
             sConfigMgr->GetOption<uint32>("Roleplay.Lyon.DeathsReprisal.BaseDamage", 25);
         Config.DeathsReprisalDamagePerLevel =
             sConfigMgr->GetOption<uint32>("Roleplay.Lyon.DeathsReprisal.DamagePerLevel", 2);
+        Config.DeathsReprisalDebugMana =
+            sConfigMgr->GetOption<bool>("Roleplay.Lyon.DeathsReprisal.DebugMana", true);
         Config.RefusalOfDeathEnabled = sConfigMgr->GetOption<bool>("Roleplay.Lyon.RefusalOfDeath.Enable", true);
         Config.RefusalOfDeathChancePct =
             sConfigMgr->GetOption<float>("Roleplay.Lyon.RefusalOfDeath.ChancePct", 100.0f);

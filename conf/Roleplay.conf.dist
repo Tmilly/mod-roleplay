@@ -24,13 +24,16 @@ Roleplay.Lyon.ShadowWandItemId = 900000
 Roleplay.Lyon.DarkAegis.Enable = 1
 Roleplay.Lyon.DarkAegis.DamageReductionPct = 3.0
 
-# Retaliate after taking nonzero damage. Spell 686 is the client-known Shadow Bolt spell.
+# Retaliate after taking nonzero damage. Spell 900001 is a zero-cost module-owned Shadow spell.
 Roleplay.Lyon.DeathsReprisal.Enable = 1
 Roleplay.Lyon.DeathsReprisal.ChancePct = 5.0
 Roleplay.Lyon.DeathsReprisal.CooldownMs = 1000
-Roleplay.Lyon.DeathsReprisal.SpellId = 686
+Roleplay.Lyon.DeathsReprisal.SpellId = 900001
 Roleplay.Lyon.DeathsReprisal.BaseDamage = 25
 Roleplay.Lyon.DeathsReprisal.DamagePerLevel = 2
+
+# Temporarily log Lyon's authoritative mana immediately before and after each reprisal cast.
+Roleplay.Lyon.DeathsReprisal.DebugMana = 1
 
 # Prevent a lethal hit when this effect is available. Spell 48792 is Icebound Fortitude.
 Roleplay.Lyon.RefusalOfDeath.Enable = 1

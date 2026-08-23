@@ -1,5 +1,6 @@
 #include "roleplay.h"
 
+#include "Log.h"
 #include "Player.h"
 #include "Random.h"
 #include "ScriptMgr.h"
@@ -92,7 +93,19 @@ private:
 
         int32 reprisalDamage = int32(config.DeathsReprisalBaseDamage +
             config.DeathsReprisalDamagePerLevel * player->GetLevel());
-        player->CastCustomSpell(config.DeathsReprisalSpellId, SPELLVALUE_BASE_POINT0, reprisalDamage, attacker, true);
+        uint32 manaBefore = player->GetPower(POWER_MANA);
+        SpellCastResult castResult = player->CastCustomSpell(
+            config.DeathsReprisalSpellId, SPELLVALUE_BASE_POINT0, reprisalDamage, attacker, TRIGGERED_FULL_MASK);
+        uint32 manaAfter = player->GetPower(POWER_MANA);
+
+        if (config.DeathsReprisalDebugMana)
+        {
+            LOG_INFO("module.roleplay.debug",
+                "Death's Reprisal mana audit for {}: before={}, after={}, delta={}, castResult={}",
+                player->GetName(), manaBefore, manaAfter, int64(manaAfter) - int64(manaBefore),
+                static_cast<uint32>(castResult));
+        }
+
         player->AddSpellCooldown(config.DeathsReprisalSpellId, 0, config.DeathsReprisalCooldownMs);
     }
 };

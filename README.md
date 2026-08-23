@@ -17,7 +17,8 @@ While Lyon carries the relic, the default mechanics are:
 
 - **Dark Aegis:** reduces incoming damage by 3%.
 - **Death's Reprisal:** has a 5% chance after a damaging hit to retaliate with level-scaled Shadow damage, limited
-  by a one-second internal cooldown.
+  by a one-second internal cooldown. It uses the zero-cost server spell `900001` and does not require a learned
+  player spell.
 - **Refusal of Death:** prevents an otherwise lethal hit, leaves Lyon at 1 health, and triggers Icebound Fortitude.
   Its default cooldown is ten minutes.
 

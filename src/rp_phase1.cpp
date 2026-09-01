@@ -166,6 +166,130 @@ uint32 GetEffectiveAppearance(Player* player, uint8 slot)
     return fakeEntry ? fakeEntry : item->GetEntry();
 }
 
+char const* CreatureTypeName(uint32 type)
+{
+    switch (type)
+    {
+        case CREATURE_TYPE_BEAST:
+            return "Beast";
+        case CREATURE_TYPE_DRAGONKIN:
+            return "Dragonkin";
+        case CREATURE_TYPE_DEMON:
+            return "Demon";
+        case CREATURE_TYPE_ELEMENTAL:
+            return "Elemental";
+        case CREATURE_TYPE_GIANT:
+            return "Giant";
+        case CREATURE_TYPE_UNDEAD:
+            return "Undead";
+        case CREATURE_TYPE_HUMANOID:
+            return "Humanoid";
+        case CREATURE_TYPE_CRITTER:
+            return "Critter";
+        case CREATURE_TYPE_MECHANICAL:
+            return "Mechanical";
+        case CREATURE_TYPE_NOT_SPECIFIED:
+            return "Not specified";
+        case CREATURE_TYPE_TOTEM:
+            return "Totem";
+        case CREATURE_TYPE_NON_COMBAT_PET:
+            return "Non-combat pet";
+        case CREATURE_TYPE_GAS_CLOUD:
+            return "Gas cloud";
+        default:
+            return "Unknown";
+    }
+}
+
+char const* CreatureRankName(uint32 rank)
+{
+    switch (rank)
+    {
+        case CREATURE_ELITE_NORMAL:
+            return "Normal";
+        case CREATURE_ELITE_ELITE:
+            return "Elite";
+        case CREATURE_ELITE_RAREELITE:
+            return "Rare elite";
+        case CREATURE_ELITE_WORLDBOSS:
+            return "World boss";
+        case CREATURE_ELITE_RARE:
+            return "Rare";
+        default:
+            return "Unknown";
+    }
+}
+
+std::vector<std::string> GetRecruitTemplateWarnings(CreatureTemplate const& creatureTemplate)
+{
+    std::vector<std::string> warnings;
+    if (creatureTemplate.Models.empty())
+        warnings.emplace_back("template has no model");
+    if (creatureTemplate.VehicleId)
+        warnings.emplace_back("template is a vehicle");
+    if (creatureTemplate.rank == CREATURE_ELITE_WORLDBOSS)
+        warnings.emplace_back("template is a world boss");
+    if (creatureTemplate.type == CREATURE_TYPE_CRITTER || creatureTemplate.type == CREATURE_TYPE_TOTEM ||
+        creatureTemplate.type == CREATURE_TYPE_NON_COMBAT_PET || creatureTemplate.type == CREATURE_TYPE_GAS_CLOUD)
+    {
+        warnings.emplace_back("creature type is unusual for a combat recruit");
+    }
+    if (!creatureTemplate.AIName.empty() && creatureTemplate.AIName != "SmartAI")
+        warnings.emplace_back("template uses specialized AI");
+    if (creatureTemplate.ScriptID)
+        warnings.emplace_back("template has a creature script");
+    if (creatureTemplate.npcflag & UNIT_NPC_FLAG_SPELLCLICK)
+        warnings.emplace_back("template is spell-clickable");
+    return warnings;
+}
+
+void ShowRecruitTemplate(ChatHandler* handler, CreatureTemplate const& creatureTemplate, Creature* liveCreature)
+{
+    handler->SendSysMessage("[RP Recruit Template]");
+    handler->PSendSysMessage("Name: {}", creatureTemplate.Name);
+    handler->PSendSysMessage("Entry: {}", creatureTemplate.Entry);
+    handler->PSendSysMessage("Level: {}-{}", creatureTemplate.minlevel, creatureTemplate.maxlevel);
+    handler->PSendSysMessage("Faction: {}", creatureTemplate.faction);
+    handler->PSendSysMessage("Creature type: {} ({})", CreatureTypeName(creatureTemplate.type), creatureTemplate.type);
+    handler->PSendSysMessage("Rank: {} ({})", CreatureRankName(creatureTemplate.rank), creatureTemplate.rank);
+    if (liveCreature)
+        handler->PSendSysMessage("Current display ID: {}", liveCreature->GetDisplayId());
+
+    if (creatureTemplate.Models.empty())
+        handler->SendSysMessage("Template models: none");
+    else
+    {
+        std::ostringstream models;
+        for (std::size_t index = 0; index < creatureTemplate.Models.size(); ++index)
+        {
+            if (index)
+                models << ", ";
+            models << creatureTemplate.Models[index].CreatureDisplayID;
+        }
+        handler->PSendSysMessage("Template models: {}", models.str());
+    }
+
+    int8 equipmentId = liveCreature ? static_cast<int8>(liveCreature->GetCurrentEquipmentId()) : -1;
+    EquipmentInfo const* equipment = equipmentId ? sObjectMgr->GetEquipmentInfo(creatureTemplate.Entry, equipmentId) :
+        nullptr;
+    handler->PSendSysMessage("Equipment template: {}{}", equipment ? std::to_string(equipmentId) : "none",
+        liveCreature ? " (current spawn)" : "");
+    handler->PSendSysMessage("AI: {}", creatureTemplate.AIName.empty() ? "default" : creatureTemplate.AIName);
+    std::string const& scriptName = sObjectMgr->GetScriptName(creatureTemplate.ScriptID);
+    handler->PSendSysMessage("Script: {}", scriptName.empty() ? "none" : scriptName);
+
+    std::vector<std::string> warnings = GetRecruitTemplateWarnings(creatureTemplate);
+    if (warnings.empty())
+        handler->SendSysMessage("Persistent recruit compatibility: YES");
+    else
+    {
+        handler->SendSysMessage("Persistent recruit compatibility: WARNING");
+        for (std::string const& warning : warnings)
+            handler->PSendSysMessage("- {}", warning);
+    }
+    handler->PSendSysMessage("Create with: .rp recruit create {} <name>", creatureTemplate.Entry);
+}
+
 class RoleplayPhaseOneManager
 {
 public:
@@ -904,11 +1028,13 @@ public:
     {
         static ChatCommandTable recruitTable =
         {
-            { "create",  HandleRecruitCreate,  SEC_PLAYER, Console::No },
-            { "follow",  HandleRecruitFollow,  SEC_PLAYER, Console::No },
-            { "stay",    HandleRecruitStay,    SEC_PLAYER, Console::No },
-            { "info",    HandleRecruitInfo,    SEC_PLAYER, Console::No },
-            { "dismiss", HandleRecruitDismiss, SEC_PLAYER, Console::No }
+            { "create",        HandleRecruitCreate,       SEC_PLAYER, Console::No },
+            { "create-target", HandleRecruitCreateTarget, SEC_PLAYER, Console::No },
+            { "template",      HandleRecruitTemplate,     SEC_PLAYER, Console::No },
+            { "follow",        HandleRecruitFollow,       SEC_PLAYER, Console::No },
+            { "stay",          HandleRecruitStay,         SEC_PLAYER, Console::No },
+            { "info",          HandleRecruitInfo,         SEC_PLAYER, Console::No },
+            { "dismiss",       HandleRecruitDismiss,      SEC_PLAYER, Console::No }
         };
         static ChatCommandTable outfitTable =
         {
@@ -926,11 +1052,18 @@ public:
         {
             { "learn", HandleIronbellyLearn, SEC_PLAYER, Console::No }
         };
+        static ChatCommandTable botTable =
+        {
+            { "gender",     HandleBotGender,     SEC_PLAYER, Console::No },
+            { "appearance", HandleBotAppearance, SEC_PLAYER, Console::No },
+            { "sheet",      HandleBotSheet,      SEC_PLAYER, Console::No }
+        };
         static ChatCommandTable roleplayTable =
         {
             { "recruit", recruitTable },
             { "outfit", outfitTable },
-            { "ironbelly", ironbellyTable }
+            { "ironbelly", ironbellyTable },
+            { "bot", botTable }
         };
         static ChatCommandTable commandTable =
         {
@@ -995,6 +1128,84 @@ private:
         }
 
         handler->PSendSysMessage("Created RP recruit {} (ID {}).", name.empty() ? "unnamed" : name, recruitId);
+        return true;
+    }
+
+    static bool HandleRecruitCreateTarget(ChatHandler* handler, std::string_view args)
+    {
+        Player* player = GetPlayer(handler);
+        Unit* selected = player ? player->GetSelectedUnit() : nullptr;
+        Creature* source = selected && selected->IsCreature() ? selected->ToCreature() : nullptr;
+        if (!source)
+        {
+            handler->SendSysMessage("Select a Creature whose template should be used.");
+            return true;
+        }
+
+        std::string name = TrimAndUnquote(args);
+        if (name.empty() || name.size() > 64)
+        {
+            handler->SendSysMessage("Usage: .rp recruit create-target <name> (maximum 64 characters)");
+            return true;
+        }
+        if (player->GetMap()->Instanceable())
+        {
+            handler->SendSysMessage("Persistent recruits cannot be created in instances or battlegrounds.");
+            return true;
+        }
+
+        std::vector<std::string> warnings = GetRecruitTemplateWarnings(*source->GetCreatureTemplate());
+        if (!warnings.empty())
+        {
+            handler->SendSysMessage("Selected template has recruit compatibility warnings:");
+            for (std::string const& warning : warnings)
+                handler->PSendSysMessage("- {}", warning);
+        }
+
+        uint64 recruitId = 0;
+        if (!RoleplayPhaseOneManager::Instance().CreateRecruit(player, source->GetEntry(), name, recruitId))
+        {
+            handler->SendSysMessage("The recruit could not be created from the selected template.");
+            return true;
+        }
+        handler->PSendSysMessage("Created RP recruit {} (ID {}) from template {}.", name, recruitId,
+            source->GetEntry());
+        return true;
+    }
+
+    static bool HandleRecruitTemplate(ChatHandler* handler, std::string_view args)
+    {
+        std::string argument = TrimAndUnquote(args);
+        args = argument;
+        Creature* liveCreature = nullptr;
+        CreatureTemplate const* creatureTemplate = nullptr;
+        if (args.empty())
+        {
+            Player* player = GetPlayer(handler);
+            Unit* selected = player ? player->GetSelectedUnit() : nullptr;
+            liveCreature = selected && selected->IsCreature() ? selected->ToCreature() : nullptr;
+            if (!liveCreature)
+            {
+                handler->SendSysMessage("Select a Creature, or use .rp recruit template <entry>.");
+                return true;
+            }
+            creatureTemplate = liveCreature->GetCreatureTemplate();
+        }
+        else
+        {
+            uint32 entry = 0;
+            auto parseResult = std::from_chars(args.data(), args.data() + args.size(), entry);
+            if (parseResult.ec != std::errc() || parseResult.ptr != args.data() + args.size() || !entry)
+                return false;
+            creatureTemplate = sObjectMgr->GetCreatureTemplate(entry);
+        }
+
+        if (!creatureTemplate)
+        {
+            handler->SendSysMessage("That creature template does not exist.");
+            return true;
+        }
+        ShowRecruitTemplate(handler, *creatureTemplate, liveCreature);
         return true;
     }
 

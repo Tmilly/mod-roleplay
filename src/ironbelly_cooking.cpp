@@ -59,7 +59,7 @@ bool HandleIronbellyLearn(ChatHandler* handler)
         }
     }
 
-    handler->PSendSysMessage("Dorrin learned {} Ironbelly recipes.", learned);
+    handler->PSendSysMessage("{} learned {} Ironbelly recipes.", player->GetName(), learned);
     return true;
 }
 

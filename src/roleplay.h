@@ -3,6 +3,7 @@
 
 #include "Define.h"
 #include <string>
+#include <string_view>
 
 struct RoleplayConfig
 {
@@ -33,6 +34,9 @@ void AddLyonShadowScripts();
 void AddRoleplayPhaseOneScripts();
 class ChatHandler;
 bool HandleIronbellyLearn(ChatHandler* handler);
+bool HandleBotGender(ChatHandler* handler, std::string_view args);
+bool HandleBotAppearance(ChatHandler* handler, std::string_view args);
+bool HandleBotSheet(ChatHandler* handler, std::string_view args);
 void AddIronbellyCookingScripts();
 
 #endif

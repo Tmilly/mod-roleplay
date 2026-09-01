@@ -6,6 +6,7 @@
 - [Shadow Wand](systems/shadow-wand.md)
 - [RP outfits](systems/rp-outfits.md)
 - [Mortal RP recruits](systems/rp-npcs.md)
+- [Playerbot customization](systems/playerbot-customization.md)
+- [PBC character sheets](systems/pbc-character-sheets.md)
 - [Ironbelly Cooking](systems/ironbelly-cooking.md)
 - [Client patch](client/CLIENT_PATCH.md)
-

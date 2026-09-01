@@ -5,6 +5,9 @@
 - Shadow Wand: carried relic, damage reduction, retaliation, lethal-damage refusal and RP feedback.
 - Sparse Playerbot outfits: transmog-derived delta sets with persistent bot assignment.
 - Mortal recruits: persistent owner identity, follow/stay, combat, dismissal and permanent death.
+- Playerbot appearance: DBC-validated gender and appearance editing for loaded bots.
+- PBC sheets: safe in-game creation and editing of PBC's canonical freeform character cards.
+- Recruit template discovery: target inspection and create-from-target convenience.
 
 ## Ironbelly Phase 1
 
@@ -22,5 +25,11 @@ Cookbook must not replace the physical skillet tool.
 
 Boss ingredients, rare recipes, creature-family discoveries, a traveling dwarven field kitchen, RP culinary
 achievements/titles, unusual harmless food reactions, more food icons/models, recruit stationing and patrols,
-RP props, richer recruit identity/history, and Playerbot race customization.
+RP props and richer recruit identity/history.
 
+## Playerbot race conversion (deferred)
+
+This AzerothCore revision keeps complete race/faction conversion inside the character-service packet handler and
+does not expose it as a reusable offline-character API. A future phase may extract that workflow into a supported
+core service so Playerbots receive all language, racial spell, faction, taxi, homebind, quest, reputation, item,
+achievement, guild/social, appearance, and cache conversions. A partial SQL race update is explicitly forbidden.

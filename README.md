@@ -39,6 +39,8 @@ follow, stay, info, and dismiss operation still validates ownership, and creatio
 Commands:
 
 - `.rp recruit create <creatureEntry> [name]`
+- `.rp recruit create-target <name>`
+- `.rp recruit template [creatureEntry]`
 - `.rp recruit follow`
 - `.rp recruit stay`
 - `.rp recruit info`
@@ -69,6 +71,14 @@ Commands:
 All commands are available at player security level. Outfit definitions are shared for use, but only their creator
 may overwrite or delete them. `clear` and `delete` remove persistent associations without destructively restoring
 current transmog visuals.
+
+## Playerbot customization and PBC cards
+
+Player-level `.rp bot gender` and `.rp bot appearance` commands edit currently loaded Playerbots. Appearance IDs
+are checked against `CharSections.dbc`, including the coupled face/skin and hair-style/color combinations, then
+saved through the live Player object. `.rp bot sheet` manages PBC's canonical `<Name>.card.txt` files under its
+configured `PBC.CharacterCardsPath`; destructive operations create a `.bak` copy. See the system documentation
+for syntax and limitations. Playerbot race conversion remains deferred because this core has no safe module API.
 
 ## Installation
 

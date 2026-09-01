@@ -44,6 +44,8 @@ public:
         Config.RefusalOfDeathSpellId =
             sConfigMgr->GetOption<uint32>("Roleplay.Lyon.RefusalOfDeath.SpellId", 48792);
         Config.PersonalMessages = sConfigMgr->GetOption<bool>("Roleplay.Lyon.Messages.Personal", true);
+        Config.IronbellyCharacterName =
+            sConfigMgr->GetOption<std::string>("Roleplay.Ironbelly.CharacterName", "Dorrin");
     }
 
     void OnStartup() override
@@ -64,4 +66,5 @@ void AddRoleplayScripts()
     new RoleplayWorldScript();
     AddLyonShadowScripts();
     AddRoleplayPhaseOneScripts();
+    AddIronbellyCookingScripts();
 }

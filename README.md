@@ -2,6 +2,8 @@
 
 Custom roleplay features for AzerothCore WotLK.
 
+Full system, ID, roadmap, and client-patch documentation begins at [`docs/README.md`](docs/README.md).
+
 ## Shadow Wand
 
 The module provides a unique, non-equippable cursed relic for Lyon:

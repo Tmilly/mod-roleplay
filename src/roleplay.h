@@ -24,11 +24,15 @@ struct RoleplayConfig
     uint32 RefusalOfDeathCooldownMs = 600000;
     uint32 RefusalOfDeathSpellId = 48792;
     bool PersonalMessages = true;
+    std::string IronbellyCharacterName = "Dorrin";
 };
 
 RoleplayConfig const& GetRoleplayConfig();
 
 void AddLyonShadowScripts();
 void AddRoleplayPhaseOneScripts();
+class ChatHandler;
+bool HandleIronbellyLearn(ChatHandler* handler);
+void AddIronbellyCookingScripts();
 
 #endif

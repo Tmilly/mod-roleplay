@@ -922,10 +922,15 @@ public:
             { "clear",  HandleOutfitClear,  SEC_PLAYER, Console::No },
             { "delete", HandleOutfitDelete, SEC_PLAYER, Console::No }
         };
+        static ChatCommandTable ironbellyTable =
+        {
+            { "learn", HandleIronbellyLearn, SEC_PLAYER, Console::No }
+        };
         static ChatCommandTable roleplayTable =
         {
             { "recruit", recruitTable },
-            { "outfit", outfitTable }
+            { "outfit", outfitTable },
+            { "ironbelly", ironbellyTable }
         };
         static ChatCommandTable commandTable =
         {

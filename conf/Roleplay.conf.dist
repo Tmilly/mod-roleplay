@@ -48,3 +48,10 @@ Roleplay.Lyon.RefusalOfDeath.SpellId = 48792
 
 # Send subtle system messages only to Lyon.
 Roleplay.Lyon.Messages.Personal = 1
+
+###################################################################################################
+# IRONBELLY COOKING
+###################################################################################################
+
+# Character allowed to learn the Phase 1 Ironbelly recipe set.
+Roleplay.Ironbelly.CharacterName = "Dorrin"

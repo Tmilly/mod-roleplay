@@ -1,0 +1,30 @@
+{
+  "totem_category": {
+    "id": 901,
+    "clone": 1,
+    "name": "The Ironbelly Skillet",
+    "type": 901,
+    "mask": 1
+  },
+  "items": [
+    {"id": 901000, "clone": 2565, "class": 4, "subclass": 0, "material": 1, "display_id": 28866, "inventory_type": 23, "sheathe_type": 7},
+    {"id": 901001, "clone": 12210, "class": 0, "subclass": 5, "material": -1, "display_id": 20803, "inventory_type": 0, "sheathe_type": 0},
+    {"id": 901002, "clone": 12212, "class": 0, "subclass": 5, "material": -1, "display_id": 21473, "inventory_type": 0, "sheathe_type": 0},
+    {"id": 901003, "clone": 3664, "class": 0, "subclass": 5, "material": -1, "display_id": 6347, "inventory_type": 0, "sheathe_type": 0},
+    {"id": 901004, "clone": 12209, "class": 0, "subclass": 5, "material": -1, "display_id": 22194, "inventory_type": 0, "sheathe_type": 0},
+    {"id": 901005, "clone": 13851, "class": 0, "subclass": 5, "material": -1, "display_id": 21327, "inventory_type": 0, "sheathe_type": 0},
+    {"id": 901006, "clone": 13927, "class": 0, "subclass": 5, "material": -1, "display_id": 7176, "inventory_type": 0, "sheathe_type": 0},
+    {"id": 901007, "clone": 12213, "class": 0, "subclass": 5, "material": -1, "display_id": 25469, "inventory_type": 0, "sheathe_type": 0},
+    {"id": 901008, "clone": 12214, "class": 0, "subclass": 5, "material": -1, "display_id": 22198, "inventory_type": 0, "sheathe_type": 0}
+  ],
+  "recipes": [
+    {"spell_id": 901100, "skill_line_id": 901100, "name": "Spiced Raptor Haunch", "item_id": 901001, "skill": 125, "green": 150, "gray": 175, "reagents": [12184, 2692], "counts": [2, 1], "clone_spell": 24418, "clone_skill_line": 12905},
+    {"spell_id": 901101, "skill_line_id": 901101, "name": "Crocolisk Hunter's Stew", "item_id": 901002, "skill": 100, "green": 125, "gray": 150, "reagents": [2924, 2678], "counts": [2, 1], "clone_spell": 24418, "clone_skill_line": 12905},
+    {"spell_id": 901102, "skill_line_id": 901102, "name": "Spider Leg Broth", "item_id": 901003, "skill": 100, "green": 125, "gray": 150, "reagents": [2251, 159], "counts": [2, 1], "clone_spell": 24418, "clone_skill_line": 12905},
+    {"spell_id": 901103, "skill_line_id": 901103, "name": "Dwarven Trail Supper", "item_id": 901004, "skill": 125, "green": 150, "gray": 175, "reagents": [3173, 2678], "counts": [2, 1], "clone_spell": 24418, "clone_skill_line": 12905},
+    {"spell_id": 901104, "skill_line_id": 901104, "name": "Boar & Ale Fry-Up", "item_id": 901005, "skill": 75, "green": 100, "gray": 125, "reagents": [769, 2593], "counts": [2, 1], "clone_spell": 24418, "clone_skill_line": 12905},
+    {"spell_id": 901105, "skill_line_id": 901105, "name": "Pan-Seared Field Catch", "item_id": 901006, "skill": 100, "green": 125, "gray": 150, "reagents": [6308, 2678], "counts": [2, 1], "clone_spell": 24418, "clone_skill_line": 12905},
+    {"spell_id": 901106, "skill_line_id": 901106, "name": "Buzzard Field Skewer", "item_id": 901007, "skill": 125, "green": 150, "gray": 175, "reagents": [3404, 2692], "counts": [2, 1], "clone_spell": 24418, "clone_skill_line": 12905},
+    {"spell_id": 901107, "skill_line_id": 901107, "name": "Mystery Meat Surprise", "item_id": 901008, "skill": 150, "green": 175, "gray": 200, "reagents": [12037, 2692], "counts": [2, 1], "clone_spell": 24418, "clone_skill_line": 12905}
+  ]
+}

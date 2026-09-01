@@ -29,5 +29,6 @@ struct RoleplayConfig
 RoleplayConfig const& GetRoleplayConfig();
 
 void AddLyonShadowScripts();
+void AddRoleplayPhaseOneScripts();
 
 #endif

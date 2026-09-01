@@ -63,4 +63,5 @@ void AddRoleplayScripts()
 {
     new RoleplayWorldScript();
     AddLyonShadowScripts();
+    AddRoleplayPhaseOneScripts();
 }

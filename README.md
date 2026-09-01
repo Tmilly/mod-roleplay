@@ -24,6 +24,50 @@ While Lyon carries the relic, the default mechanics are:
 
 All mechanics and tuning values can be changed in `Roleplay.conf`.
 
+## Persistent RP recruits
+
+The player-level `.rp recruit` commands create lightweight, mortal temporary creatures backed by records in the
+character database. They are reconstructed when their owner logs in, use their creature template's normal combat
+AI, and can follow or hold position. Death sets a permanent database state before the corpse expires, so dead
+recruits are never reconstructed.
+
+Players may use any valid `creature_template` entry and there is no module-enforced recruit count limit. Every
+follow, stay, info, and dismiss operation still validates ownership, and creation remains disabled in instances.
+
+Commands:
+
+- `.rp recruit create <creatureEntry> [name]`
+- `.rp recruit follow`
+- `.rp recruit stay`
+- `.rp recruit info`
+- `.rp recruit dismiss`
+
+The optional RP name is persistent and appears in `.rp recruit info`. The unmodified 3.3.5 client obtains an
+overhead creature name from `creature_template`, so Phase 1 intentionally does not rename the shared template.
+
+## Sparse Playerbot outfits
+
+Outfit editing records a baseline, lets the player use the existing mod-transmog NPC, then persists only armor
+slots whose effective item appearance changed. Weapon slots are excluded. Applying an outfit calls mod-transmog's
+fake-entry API and never replaces equipment or changes stats. Persistent assignments are reapplied when a bot logs
+in and only for the equipment slot that changes when the bot equips an upgrade.
+
+Commands:
+
+- `.rp outfit begin "name"`
+- `.rp outfit save`
+- `.rp outfit cancel`
+- `.rp outfit list`
+- `.rp outfit info "name"`
+- `.rp outfit apply "name"`
+- `.rp outfit assign "name"`
+- `.rp outfit clear`
+- `.rp outfit delete "name"`
+
+All commands are available at player security level. Outfit definitions are shared for use, but only their creator
+may overwrite or delete them. `clear` and `delete` remove persistent associations without destructively restoring
+current transmog visuals.
+
 ## Installation
 
 Place this directory at `modules/mod-roleplay` in an AzerothCore checkout, then configure and build the core as
@@ -36,4 +80,4 @@ the module.
 
 - Add C++ scripts under `src/`.
 - Register each script from `AddRoleplayScripts()` in `src/roleplay.cpp`.
-- Add database migrations only under the matching `data/sql/updates/pending_db_*` directory.
+- Add module database migrations under the matching `data/sql/db-*/updates` directory.

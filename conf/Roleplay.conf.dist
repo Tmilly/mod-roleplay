@@ -55,3 +55,53 @@ Roleplay.Lyon.Messages.Personal = 1
 
 # Character allowed to learn the Phase 1 Ironbelly recipe set.
 Roleplay.Ironbelly.CharacterName = "Dorrin"
+
+###################################################################################################
+# DEATH KNIGHT PROGRESSION (all options require a worldserver restart)
+###################################################################################################
+# New DKs level in Azeroth, then play the original Acherus campaign. No quest credit is fabricated.
+# This subsystem also requires Roleplay.Enable. Disable other DK-start/skip modules.
+# The module sets StartHeroicPlayerLevel and the account's DK minimum-level requirement at runtime.
+# Expansion must remain 2, and HeroicCharactersPerRealm must permit DK creation.
+# Character settings storage is enabled automatically for transactional recovery.
+#
+# For mod-individual-progression, set these in individualProgression.conf BEFORE creating a DK:
+# IndividualProgression.DeathKnightUnlockProgression = 0
+# IndividualProgression.DeathKnightStartingProgression = 0
+# Roleplay never changes IP progression or overrides its account/race/content restrictions.
+Roleplay.DeathKnight.Enable = 1
+
+# Range 1-55. Normal accounts are recommended for creation testing (GM start levels differ in core).
+Roleplay.DeathKnight.StartLevel = 1
+
+# Uses the realm's existing warrior racial start; Blood Elves use paladin racial data.
+# Forced on when StartLevel <55, because original Acherus quests require level 55.
+Roleplay.DeathKnight.UseRacialStartingZone = 1
+
+# Range 1-80. Applies only to enrolled custom DKs. Ordinary classes and stock DKs are unaffected.
+Roleplay.DeathKnight.PlateLevel = 40
+
+# Scale DK direct spell damage and periodic damage from MinimumDamageMultiplier at level 1
+# to 100% at FullDamageScalingLevel. Auto-attacks, pets and percent-based healing remain stock.
+Roleplay.DeathKnight.EnableLowLevelScaling = 1
+Roleplay.DeathKnight.FullDamageScalingLevel = 60
+Roleplay.DeathKnight.MinimumDamageMultiplier = 0.10
+
+# Disabling the transition leaves the campaign pending; it does not skip or reward it.
+Roleplay.DeathKnight.DelayedAcherusCampaign = 1
+
+# Range 55-80; values below 55 are clamped to the stock quests' minimum level.
+Roleplay.DeathKnight.AcherusCampaignLevel = 55
+
+# Deliver the preserved race/gender DBC outfit plus positive playercreateinfo_item additions.
+# Always inventory first, mail overflow. Automatic equipment replacement is deliberately unsupported.
+# No AutoEquipAcherusStartingGear option: campaign starter equipment is NEVER auto-equipped.
+Roleplay.DeathKnight.GiveAcherusStartingGear = 1
+
+# Adopt an existing 55+ DK only with no campaign history and outside map 609.
+# Existing unmarked DKs inside Acherus are ambiguous stock characters and are left alone.
+Roleplay.DeathKnight.RecoverExistingCharacters = 1
+
+# Optional rewarded quest required before entry (0 = none). Use an existing IP milestone quest
+# if your realm gates Acherus; this only defers entry, never grants progression or access.
+Roleplay.DeathKnight.AcherusRequiredQuest = 0

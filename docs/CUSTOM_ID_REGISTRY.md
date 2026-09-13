@@ -9,10 +9,11 @@
 | 901100-901107 | Spells | Phase 1 Cooking recipes | Ironbelly | Server + client | Active | Native CREATE_ITEM recipes |
 | 901100-901107 | SkillLineAbility rows | Phase 1 Cooking recipes | Ironbelly | Server + client | Active | Cooking skill line 185 |
 | 901 | TotemCategory | The Ironbelly Skillet | Ironbelly | Server + client | Active | Private type 901/mask 1 |
+| 900120 | Creature template | Runeblade Mentor | Death Knight progression | Server | Active | Stock trainer 13; spawn GUIDs allocated by MySQL |
 | `LyonShadowPlayerScript` | Script name | Login feedback | Lyon | Server | Active | Personal message |
 | `LyonShadowUnitScript` | Script name | Relic combat mechanics | Lyon | Server | Active | Damage hook |
 | `RoleplayPhaseOne*` | Script names | Recruits/outfits | RP Phase 1 | Server | Active | Player, Unit, Command scripts |
 | `IronbellyFoodItemScript` | Script name | Harmless food reactions | Ironbelly | Server | Active | Items 901005/901008 |
 
-There are no custom creature or gameobject template IDs in the module. Recruit IDs and outfit IDs are database
+There are no custom gameobject template IDs in the module. Recruit IDs and outfit IDs are database
 auto-increment identities, not reserved static content IDs.

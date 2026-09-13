@@ -1,4 +1,5 @@
 #include "RoleplayDeathKnight.h"
+#include "../blood_knight/BloodKnight.h"
 #include "Chat.h"
 #include "Creature.h"
 #include "Item.h"
@@ -42,7 +43,7 @@ public:
 
     void OnPlayerLevelChanged(Player* player, uint8 oldLevel) override
     {
-        if (!IsManaged(player))
+        if (!IsManaged(player) && !Roleplay::BloodKnight::IsBloodKnight(player))
             return;
         RestoreTaxi(player);
         ApplyProgression(player);

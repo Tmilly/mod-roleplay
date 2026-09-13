@@ -105,3 +105,32 @@ Roleplay.DeathKnight.RecoverExistingCharacters = 1
 # Optional rewarded quest required before entry (0 = none). Use an existing IP milestone quest
 # if your realm gates Acherus; this only defers entry, never grants progression or access.
 Roleplay.DeathKnight.AcherusRequiredQuest = 0
+
+###################################################################################################
+# ALDRIC: BLOOD KNIGHT (character-specific DK/affliction prototype)
+###################################################################################################
+# Only the configured Death Knight receives this subsystem. A nonzero GUID takes precedence over
+# the name, allowing the character to be renamed or change race without losing the identity.
+Roleplay.BloodKnight.Enable = 1
+Roleplay.BloodKnight.CharacterName = "Aldric"
+Roleplay.BloodKnight.CharacterGuid = 0
+
+# Auxiliary server-side Mana. Runic Power remains the DK active power type; the core hook admits
+# Mana-cost spells for Aldric and their stock DBC cost is charged against POWER_MANA.
+Roleplay.BloodKnight.Mana.Enable = 1
+Roleplay.BloodKnight.Mana.BasePerLevel = 20
+Roleplay.BloodKnight.Mana.IntellectMultiplier = 15.0
+Roleplay.BloodKnight.Mana.OutOfCombatRegenPct = 2.0
+
+# Selected stock WotLK Warlock spells and their rank progression.
+Roleplay.BloodKnight.Spells.EnableDrainLife = 1
+Roleplay.BloodKnight.Spells.EnableCurseOfWeakness = 1
+Roleplay.BloodKnight.Spells.EnableCurseOfAgony = 1
+Roleplay.BloodKnight.Spells.EnableFear = 1
+Roleplay.BloodKnight.Spells.EnableShadowfury = 1
+
+# Conservative Blood/affliction interactions.
+Roleplay.BloodKnight.Synergy.BloodPlagueDrain = 1
+Roleplay.BloodKnight.Synergy.VampiricBlood = 1
+Roleplay.BloodKnight.Synergy.SoulFeast = 1
+Roleplay.BloodKnight.Synergy.BloodPlagueDrainPct = 7.0

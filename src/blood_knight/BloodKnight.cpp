@@ -91,7 +91,7 @@ bool IsBloodKnight(Player const* player)
 
 State* GetState(Player const* player)
 {
-    return player ? player->CustomData.GetDefault<State>(SettingsSource) : nullptr;
+    return player ? const_cast<Player*>(player)->CustomData.GetDefault<State>(SettingsSource) : nullptr;
 }
 
 uint32 ManaFor(Player const* player)

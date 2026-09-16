@@ -43,6 +43,7 @@ void LoadConfig(bool reload);
 bool IsBloodKnight(Player const* player);
 State* GetState(Player const* player);
 uint32 ManaFor(Player const* player);
+void EnsureShieldSupport(Player* player);
 void Refresh(Player* player);
 void Save(Player* player);
 void AddScripts();

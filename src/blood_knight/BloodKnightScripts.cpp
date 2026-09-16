@@ -27,6 +27,15 @@ public:
     void OnPlayerLevelChanged(Player* player, uint8 /*oldLevel*/) override { Refresh(player); }
     void OnPlayerSave(Player* player) override { Save(player); }
 
+    bool OnPlayerCheckItemInSlotAtLoadInventory(Player* player, Item* /*item*/, uint8 /*slot*/,
+        uint8& /*err*/, uint16& /*dest*/) override
+    {
+        // _LoadSkills can discard the nonstandard DK skill before _LoadInventory runs.
+        // Repair before CanEquipItem, retaining every normal item/slot/weapon restriction.
+        EnsureShieldSupport(player);
+        return true;
+    }
+
     void OnPlayerUpdate(Player* player, uint32 diff) override
     {
         if (!IsBloodKnight(player) || !GetConfig().ManaEnable)

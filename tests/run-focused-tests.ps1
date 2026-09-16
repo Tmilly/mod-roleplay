@@ -56,10 +56,34 @@ foreach ($dir in $includeDirs) { $flags += "/I$dir" }
 if ($LASTEXITCODE) { throw 'Sheet regression compilation failed' }
 & "$scratch/sheet.exe" $scratch
 if ($LASTEXITCODE) { throw 'Sheet regression failed' }
-& cl /nologo /std:c++20 /EHsc "$PSScriptRoot/death_knight_policy_test.cpp" "/Fo$scratch/policy.obj" "/Fe$scratch/policy.exe"
+& cl /nologo /std:c++20 /EHsc "$PSScriptRoot/death_knight_policy_test.cpp" `
+    "/Fo$scratch/policy.obj" "/Fe$scratch/policy.exe"
 if ($LASTEXITCODE) { throw 'Existing policy test compilation failed' }
 & "$scratch/policy.exe"
 if ($LASTEXITCODE) { throw 'Existing policy test failed' }
+$blood = [IO.File]::ReadAllText("$moduleRoot/src/blood_knight/BloodKnight.cpp")
+$refresh = Function-Source $blood 'void Refresh('
+if ($refresh.IndexOf('EnsureShieldSupport(player);') -lt 0 -or
+    $refresh.IndexOf('EnsureShieldSupport(player);') -gt $refresh.IndexOf('!Settings.ManaEnable')) {
+    throw 'Shield repair must precede the mana-only return'
+}
+$hooks = [IO.File]::ReadAllText("$moduleRoot/src/blood_knight/BloodKnightScripts.cpp")
+$loadHook = Function-Source $hooks 'bool OnPlayerCheckItemInSlotAtLoadInventory('
+if (!$loadHook.Contains('EnsureShieldSupport(player);') -or !$loadHook.Contains('return true;')) {
+    throw 'Inventory loading must repair shields and retain normal equipment validation'
+}
+if ((Function-Source $hooks 'void OnPlayerUpdate(').Contains('EnsureShieldSupport')) {
+    throw 'Shield initialization must not run on update ticks'
+}
+$shield = [IO.File]::ReadAllText("$PSScriptRoot/shield_test_support.h") + "`n"
+$shield += (Function-Source $blood 'bool IsBloodKnight(') + "`n"
+$shield += (Function-Source $blood 'void EnsureShieldSupport(') + "`n"
+$shield += [IO.File]::ReadAllText("$PSScriptRoot/shield_test_cases.h")
+[IO.File]::WriteAllText("$scratch/shield.cpp", $shield, $utf8)
+& cl /nologo /std:c++20 /EHsc "$scratch/shield.cpp" "/Fo$scratch/shield.obj" "/Fe$scratch/shield.exe"
+if ($LASTEXITCODE) { throw 'Shield regression compilation failed' }
+& "$scratch/shield.exe"
+if ($LASTEXITCODE) { throw 'Shield regression failed' }
 Write-Host "Disposable test artifacts: $scratch"
 if ($CompileModule) {
     # Compile the changed translation units against the installed core's generated include paths.
@@ -73,7 +97,8 @@ if ($CompileModule) {
     foreach ($dir in ($group.ClCompile.AdditionalIncludeDirectories -split ';')) {
         if (Test-Path $dir) { $compileFlags += "/I$dir" }
     }
-    foreach ($source in @('rp_phase1.cpp', 'rp_bot.cpp')) {
+    foreach ($source in @('rp_phase1.cpp', 'rp_bot.cpp', 'blood_knight/BloodKnight.cpp',
+        'blood_knight/BloodKnightScripts.cpp')) {
         $object = [IO.Path]::GetFileNameWithoutExtension($source)
         & cl @compileFlags "$moduleRoot/src/$source" "/Fo$scratch/$object.obj"
         if ($LASTEXITCODE) { throw "Module compilation failed: $source" }

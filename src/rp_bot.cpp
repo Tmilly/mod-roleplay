@@ -525,6 +525,12 @@ bool HandleBotAppearance(ChatHandler* handler, std::string_view args)
 
 bool HandleBotSheet(ChatHandler* handler, std::string_view args)
 {
+    auto usage = [handler]()
+    {
+        handler->SendSysMessage("Usage: .rp bot sheet [online Playerbot name] <create|show|clear>");
+        handler->SendSysMessage("Usage: .rp bot sheet [online Playerbot name] <append|set> <text>");
+        return true;
+    };
     std::string_view first = TakeToken(args);
     std::string_view botName;
     std::string_view operationText;
@@ -535,10 +541,15 @@ bool HandleBotSheet(ChatHandler* handler, std::string_view args)
         botName = first;
         operationText = TakeToken(args);
     }
-    if (operationText.empty())
-        return false;
+    if (!IsSheetOperation(operationText))
+        return usage();
 
     std::string operation = Lower(operationText);
+    if (operation != "append" && operation != "set" && !Trim(args).empty())
+        return usage();
+    if ((operation == "append" || operation == "set") && Trim(args).empty())
+        return usage();
+
     Player* bot = FindPlayerbot(handler, botName);
     if (!bot)
         return true;
@@ -551,8 +562,6 @@ bool HandleBotSheet(ChatHandler* handler, std::string_view args)
     bool exists = std::filesystem::is_regular_file(path, error) && !error;
     if (operation == "create")
     {
-        if (!Trim(args).empty())
-            return false;
         if (exists)
         {
             handler->PSendSysMessage("PBC character card already exists for {}. It was not overwritten.",
@@ -567,8 +576,6 @@ bool HandleBotSheet(ChatHandler* handler, std::string_view args)
     }
     else if (operation == "show")
     {
-        if (!Trim(args).empty())
-            return false;
         std::string contents;
         if (!exists || !ReadCard(path, contents))
         {
@@ -610,8 +617,6 @@ bool HandleBotSheet(ChatHandler* handler, std::string_view args)
     }
     else if (operation == "clear")
     {
-        if (!Trim(args).empty())
-            return false;
         if (!exists || !BackupCard(path) || !WriteCard(path, "", false))
         {
             handler->SendSysMessage("Could not back up and clear the PBC character card.");
@@ -619,7 +624,7 @@ bool HandleBotSheet(ChatHandler* handler, std::string_view args)
         }
     }
     else
-        return false;
+        return usage();
 
     handler->PSendSysMessage("PBC character card for {} updated at {}.", bot->GetName(), path.string());
     handler->SendSysMessage("Run .chars reload as a GM, or from the worldserver console, to apply the change.");

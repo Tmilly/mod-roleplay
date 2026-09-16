@@ -103,8 +103,34 @@ uint32 ManaFor(Player const* player)
     return uint32(std::clamp(value, 1.0f, 100000.0f));
 }
 
+void EnsureShieldSupport(Player* player)
+{
+    if (!IsBloodKnight(player))
+        return;
+
+    // Stock 3.3.5 Shield proficiency and Block passive, independent of mana and race.
+    for (uint32 spell : {9116u, 107u})
+        if (!player->HasSpell(spell))
+            player->learnSpell(spell, false);
+
+    // Learning the spell alone need not grant a skill for a DK's DBC race/class combination.
+    if (!player->HasSkill(SKILL_SHIELD))
+        player->SetSkill(SKILL_SHIELD, 0, 1, 1);
+
+    // Repair runtime capability too when the spells were already known.
+    constexpr uint32 shieldMask = 1u << ITEM_SUBCLASS_ARMOR_SHIELD;
+    if (!(player->GetArmorProficiency() & shieldMask))
+    {
+        player->AddArmorProficiency(shieldMask);
+        player->SendProficiency(ITEM_CLASS_ARMOR, player->GetArmorProficiency());
+    }
+    if (!player->CanBlock())
+        player->SetCanBlock(true);
+}
+
 void Refresh(Player* player)
 {
+    EnsureShieldSupport(player);
     if (!IsBloodKnight(player) || !Settings.ManaEnable)
         return;
     State* state = GetState(player);

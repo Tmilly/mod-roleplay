@@ -1,6 +1,7 @@
 #include "roleplay.h"
 
 #include "Chat.h"
+#include "ChatCommandTags.h"
 #include "CommandScript.h"
 #include "Creature.h"
 #include "CreatureAI.h"
@@ -32,6 +33,11 @@ using namespace Acore::ChatCommands;
 
 namespace
 {
+bool HandleBotSheetCommand(ChatHandler* handler, Tail args)
+{
+    return HandleBotSheet(handler, args);
+}
+
 enum class RecruitBehavior : uint8
 {
     Follow = 0,
@@ -1056,7 +1062,7 @@ public:
         {
             { "gender",     HandleBotGender,     SEC_PLAYER, Console::No },
             { "appearance", HandleBotAppearance, SEC_PLAYER, Console::No },
-            { "sheet",      HandleBotSheet,      SEC_PLAYER, Console::No }
+            { "sheet",      HandleBotSheetCommand, SEC_PLAYER, Console::No }
         };
         static ChatCommandTable roleplayTable =
         {

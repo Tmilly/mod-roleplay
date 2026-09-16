@@ -44,13 +44,13 @@ int main()
     assert(LevelTalentPoints(1) == 0 && LevelTalentPoints(9) == 0 && LevelTalentPoints(10) == 1);
     assert(LevelTalentPoints(40) == 31 && LevelTalentPoints(54) == 45);
     assert(LevelTalentPoints(55) == 46 && LevelTalentPoints(58) == 49 && LevelTalentPoints(80) == 71);
-    for (std::uint8_t full : {std::uint8_t(2), std::uint8_t(60), std::uint8_t(80)})
+    for (std::uint8_t full : {std::uint8_t(2), std::uint8_t(55), std::uint8_t(60), std::uint8_t(80)})
     {
-        assert(std::abs(LevelDamageScale(1, full, 0.10f) - 0.10f) < 0.00001f);
+        assert(std::abs(LevelDamageScale(1, full, 1.0f) - 0.06f) < 0.00001f);
         float previous = 0;
         for (std::uint8_t level = 1; level <= 80; ++level)
         {
-            float scale = LevelDamageScale(level, full, 0.10f);
+            float scale = LevelDamageScale(level, full, 1.0f);
             assert(scale >= previous && scale <= 1.0f);
             if (level >= full)
                 assert(scale == 1.0f);

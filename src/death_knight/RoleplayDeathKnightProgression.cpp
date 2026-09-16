@@ -27,7 +27,15 @@ void ApplyProgression(Player* player)
 
     for (auto const& unlock : Unlocks)
     {
-        // Never remove learned higher ranks or legitimate talent spells on login.
+        // Repair imported/previously learned hero-level ranks only in our explicit unlock chains.
+        // Preserve talents and all normal 55+ training. Rank 1 is the intentional low-level fallback.
+        if (player->GetLevel() < 55)
+            for (uint32 rank = sSpellMgr->GetNextSpellInChain(unlock.Spell); rank;
+                rank = sSpellMgr->GetNextSpellInChain(rank))
+                if (SpellInfo const* info = sSpellMgr->GetSpellInfo(rank))
+                    if (IsPrematureProgressionRank(player->GetLevel(), info->SpellLevel) && player->HasSpell(rank))
+                        player->removeSpell(rank, SPEC_MASK_ALL, false);
+
         if (player->GetLevel() >= unlock.Level)
         {
             if (!player->HasSpell(unlock.Spell))

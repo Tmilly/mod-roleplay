@@ -121,7 +121,7 @@ intentional fallback with ability normalization. `SpellLevel` does not automatic
 damage to match a level-5 caster.
 
 Before granting each unlocked first rank, progression now removes prematurely learned higher ranks only
-within that explicit spell chain and only below level 55. This runs at existing login/level/trainer refreshes.
+within that explicit spell chain and only below level 55. This runs at existing login/level refreshes.
 It uses the core rank-chain APIs, not a list of rank IDs; legitimate talent spells and unrelated spellbooks
 are untouched. At 55+ normal trainer/rank behavior remains unchanged. The module does not grant high ranks
 automatically. Artificially GM-teaching a high rank after refresh is not a supported balance-testing setup.

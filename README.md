@@ -82,6 +82,14 @@ for syntax and limitations. Playerbot race conversion remains deferred because t
 
 ## Installation
 
+The custom Runeblade Mentor (900120) has been retired: managed DKs already learn their custom progression
+automatically on login and level-up. Apply the module world migration `rev_20260916010000.sql` through your
+normal module SQL update process, rebuild/install, and restart to remove existing mentor spawns and his script.
+The migration only removes this custom NPC's spawns, trainer binding, model and template. Normal DK trainers,
+their shared spell list, automatic progression, and Acherus quest rewards remain unchanged. No configuration
+change or manual spell training is needed for this removal. After updating, verify the mentor is absent and
+a disposable managed DK still learns its next ability on level-up.
+
 Place this directory at `modules/mod-roleplay` in an AzerothCore checkout, then configure and build the core as
 usual. AzerothCore discovers the source files and distributed configuration automatically.
 

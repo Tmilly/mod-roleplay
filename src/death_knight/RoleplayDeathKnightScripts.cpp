@@ -1,11 +1,7 @@
 #include "RoleplayDeathKnight.h"
 #include "../blood_knight/BloodKnight.h"
-#include "Chat.h"
-#include "Creature.h"
 #include "Item.h"
 #include "ScriptMgr.h"
-#include "ScriptedGossip.h"
-#include "WorldSession.h"
 
 namespace Roleplay::DeathKnight
 {
@@ -72,26 +68,6 @@ public:
     }
 };
 
-class TrainerScript : public CreatureScript
-{
-public:
-    TrainerScript() : CreatureScript("npc_roleplay_death_knight_trainer") { }
-
-    bool OnGossipHello(Player* player, Creature* creature) override
-    {
-        if (!IsManaged(player))
-        {
-            CloseGossipMenuFor(player);
-            return true;
-        }
-        ApplyProgression(player);
-        // Use the SAME stock trainer 13 for early rows and later ranks, so IP's trainer edits,
-        // costs, prerequisites and talent requirements stay in effect. Campaign-only spells
-        // (Runeforging/Death Gate) are deliberately absent until their stock quests teach them.
-        player->GetSession()->SendTrainerList(creature);
-        return true;
-    }
-};
 }
 }
 
@@ -99,6 +75,5 @@ void AddRoleplayDeathKnightScripts()
 {
     new Roleplay::DeathKnight::WorldHooks();
     new Roleplay::DeathKnight::PlayerHooks();
-    new Roleplay::DeathKnight::TrainerScript();
     Roleplay::DeathKnight::AddScalingScripts();
 }

@@ -65,8 +65,8 @@ No claim is made that a missing melee hook caused the reported symptom or that l
 | Level | Ability multiplier |
 | --- | --- |
 | 1 | 0.06 |
-| 5 | 0.10 |
-| 10 | 0.15 |
+| 5 | 0.08 |
+| 10 | 0.12 |
 | 20 | 0.28 |
 | 30 | 0.43 |
 | 40 | 0.60 |
@@ -82,12 +82,28 @@ its weapon component because it is additional rune-funded damage, unlike a white
 bonuses would preserve mature strike/AP/disease throughput on top of unchanged auto-attacks. Weapon upgrades
 still improve all white damage at full value and improve specials proportionally; no weapon stats are edited.
 
-The proposed anchors were retained after checking first-rank payloads, rather than assuming they prove balance.
+The anchors were checked against first-rank payloads, then reduced at 5/10 to account for early rune burst.
 For a **synthetic** input of normalized weapon damage 15, AP 30 and no talents/presence/crit/mitigation,
-level-5 Icy Touch averages 13.5, Plague Strike 7, and two-disease Blood Strike 13.75 before rounding.
+level-5 Icy Touch averages 10.8, Plague Strike 5.6, and two-disease Blood Strike 11 before rounding.
 Warrior Heroic Strike rank 1 adds 11 to a swing; Paladin Judgement of Righteousness contributes 7 and its seal
 adds about 1.98 per 3-second swing under those inputs. These are different resource/cadence mechanisms, not
 equivalent DPS. They support an initial low-level budget; they do not establish time-to-kill parity.
+
+A follow-up comparison used repository class stats and actual two-handed weapon templates across levels
+5/10/20/30/40/50/55. Existing module SQL supplies missing DK 1-54 stats from Warrior stats, and DK/Warrior/
+Paladin use the same melee AP formula. With Training Sword (8178), no armor stats, affixes or racial modifiers,
+a level-5 DK/Warrior has 51 AP and an average white hit of 37.75; Paladin has 47 AP and a white hit of 36.75
+before self-buffs. Revised DK payloads are about Icy Touch 10.97, Plague Strike 6.48 and two-disease Blood
+Strike 11.88 before rounding/mitigation. Heroic Strike adds 11 to a replaced swing; Paladin Judgement adds
+10.4 and its seal about 3.62 per swing, before class self-buffs.
+
+Equal-looking payloads understate DK burst: six ready runes fund six attacks, and Death Coil adds another
+attack from level 6. Warrior also has Rend/Battle Shout but needs rage; Paladin has Might and seal procs with
+Judgement cooldown/mana constraints. A conservative follow-up reduces ability damage by 20% at 5 and 10
+(10% -> 8%, 15% -> 12%), tapering back by 20. White damage stays intact, so total damage falls by less than
+20%. Later-level talents, pets and rotations prevent an honest precise class ranking from this small model;
+20+ was not retuned on that basis. This is an estimate, not measured DPS/TTK parity. Check 5/10/20 in-game
+before adding further tuning controls or touching resources.
 
 `tests/death_knight_payload_model.cpp` prints that theoretical comparison for levels 5/10/20/30/40/50/55.
 Run its compiled `model.exe <normalized weapon hit including AP> <AP> <holy SP> <swing seconds>` with observed

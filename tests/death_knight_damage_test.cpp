@@ -9,6 +9,8 @@ int main()
 {
     for (auto const& anchor : DamageCurve)
         assert(std::abs(LevelDamageScale(std::uint8_t(anchor.Level), 55, 1) - anchor.Multiplier) < 0.00001f);
+    assert(std::abs(LevelDamageScale(5, 55, 1) - 0.08f) < 0.00001f);
+    assert(std::abs(LevelDamageScale(10, 55, 1) - 0.12f) < 0.00001f);
     assert(std::abs(LevelDamageScale(54, 55, 1) - 0.96f) < 0.00001f);
     assert(LevelDamageScale(55, 55, 1) == 1);
     assert(LevelDamageScale(60, 55, 1) == 1);

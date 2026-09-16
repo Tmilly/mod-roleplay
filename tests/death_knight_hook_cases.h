@@ -13,23 +13,23 @@ int main()
         SpellInfo spell{id, SPELLFAMILY_DEATHKNIGHT};
         int32 damage = 1000;
         hooks.ModifySpellDamageTaken(nullptr, &caster, damage, &spell);
-        assert(damage == 100); // Once, not 10 (twice) or 1000 (missed).
+        assert(damage == 80); // Once, not 6 (twice) or 1000 (missed).
         uint32 noPeriodicDamage = damage;
         hooks.ModifyPeriodicDamageAurasTick(nullptr, &caster, noPeriodicDamage, &spell);
-        assert(noPeriodicDamage == 100);
+        assert(noPeriodicDamage == 80);
     }
     for (uint32 id : {55078u, 55095u})
     {
         SpellInfo disease{id, SPELLFAMILY_DEATHKNIGHT, SPELL_AURA_PERIODIC_DAMAGE};
         uint32 tick = 1000;
         hooks.ModifyPeriodicDamageAurasTick(nullptr, &caster, tick, &disease);
-        assert(tick == 100);
+        assert(tick == 80);
         // Aura-only applications have no m_damage, so core does not call the direct hook for them.
         // Core Wandering Plague copies this tick; its generic family excludes a second multiplier.
         SpellInfo plague{50526, SPELLFAMILY_GENERIC};
         int32 triggered = tick;
         hooks.ModifySpellDamageTaken(nullptr, &caster, triggered, &plague);
-        assert(triggered == 100);
+        assert(triggered == 80);
     }
     SpellInfo coil{47632, SPELLFAMILY_DEATHKNIGHT};
     int32 coilDamage = 1000;
@@ -37,7 +37,7 @@ int main()
     SpellInfo blight{50536, SPELLFAMILY_DEATHKNIGHT, SPELL_AURA_PERIODIC_DAMAGE};
     uint32 blightTick = coilDamage / 10;
     hooks.ModifyPeriodicDamageAurasTick(nullptr, &caster, blightTick, &blight);
-    assert(blightTick == 10); // Already normalized by the source Death Coil, not 1.
+    assert(blightTick == 8); // Already normalized by the source Death Coil, not 1.
 
     uint32 white = 1000;
     hooks.ModifyMeleeDamage(nullptr, &caster, white);

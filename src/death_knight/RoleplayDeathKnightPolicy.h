@@ -54,7 +54,7 @@ struct DamageAnchor
 // First-rank DK spells carry level-55+ flat damage even with a level-1 weapon.
 // Only ability damage follows this curve; white damage retains normal weapon/AP progression.
 inline constexpr std::array<DamageAnchor, 8> DamageCurve{{
-    {1, 0.06f}, {5, 0.10f}, {10, 0.15f}, {20, 0.28f},
+    {1, 0.06f}, {5, 0.08f}, {10, 0.12f}, {20, 0.28f},
     {30, 0.43f}, {40, 0.60f}, {50, 0.80f}, {55, 1.00f}
 }};
 

@@ -82,7 +82,7 @@ Roleplay.DeathKnight.UseRacialStartingZone = 1
 Roleplay.DeathKnight.PlateLevel = 40
 
 # Managed DK ability damage only, including the complete special weapon strike and diseases.
-# Default curve: 1=6%, 5=10%, 10=15%, 20=28%, 30=43%, 40=60%, 50=80%, 55=100%.
+# Default curve: 1=6%, 5=8%, 10=12%, 20=28%, 30=43%, 40=60%, 50=80%, 55=100%.
 # White attacks, pets, other spell families and percentage healing remain stock.
 Roleplay.DeathKnight.EnableLowLevelScaling = 1
 # Range 2-55: compresses the curve to reach normal damage earlier. Legacy 60 is clamped to 55.

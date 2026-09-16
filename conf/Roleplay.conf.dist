@@ -81,11 +81,17 @@ Roleplay.DeathKnight.UseRacialStartingZone = 1
 # Range 1-80. Applies only to enrolled custom DKs. Ordinary classes and stock DKs are unaffected.
 Roleplay.DeathKnight.PlateLevel = 40
 
-# Scale DK direct spell damage and periodic damage from MinimumDamageMultiplier at level 1
-# to 100% at FullDamageScalingLevel. Auto-attacks, pets and percent-based healing remain stock.
+# Managed DK ability damage only, including the complete special weapon strike and diseases.
+# Default curve: 1=6%, 5=10%, 10=15%, 20=28%, 30=43%, 40=60%, 50=80%, 55=100%.
+# White attacks, pets, other spell families and percentage healing remain stock.
 Roleplay.DeathKnight.EnableLowLevelScaling = 1
-Roleplay.DeathKnight.FullDamageScalingLevel = 60
-Roleplay.DeathKnight.MinimumDamageMultiplier = 0.10
+# Range 2-55: compresses the curve to reach normal damage earlier. Legacy 60 is clamped to 55.
+# Levels 55+ ALWAYS have normal damage, independently of this setting.
+Roleplay.DeathKnight.FullDamageScalingLevel = 55
+# Raise the curve to this power: >1 reduces early damage, <1 increases it; 1 uses the anchors above.
+# Range 0.5-2.0. Keeps the normal-damage endpoint intact. Restart required for configuration changes.
+# Obsolete MinimumDamageMultiplier is ignored; remove it from existing Roleplay.conf files.
+Roleplay.DeathKnight.DamageCurveExponent = 1.0
 
 # Disabling the transition leaves the campaign pending; it does not skip or reward it.
 Roleplay.DeathKnight.DelayedAcherusCampaign = 1

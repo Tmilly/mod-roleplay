@@ -19,8 +19,8 @@ struct Config
     bool UseRacialStartingZone = true;
     uint8 PlateLevel = 40;
     bool EnableLowLevelScaling = true;
-    uint8 FullDamageScalingLevel = 60;
-    float MinimumDamageMultiplier = 0.10f;
+    uint8 FullDamageScalingLevel = 55;
+    float DamageCurveExponent = 1.0f;
     bool DelayedAcherusCampaign = true;
     uint8 AcherusCampaignLevel = 55;
     bool GiveAcherusStartingGear = true;

@@ -38,12 +38,12 @@ void LoadConfig(bool reload)
     Settings.EnableLowLevelScaling =
         sConfigMgr->GetOption<bool>("Roleplay.DeathKnight.EnableLowLevelScaling", true);
     Settings.FullDamageScalingLevel =
-        std::clamp(sConfigMgr->GetOption<uint32>("Roleplay.DeathKnight.FullDamageScalingLevel", 60), 2u, 80u);
-    Settings.MinimumDamageMultiplier =
-        sConfigMgr->GetOption<float>("Roleplay.DeathKnight.MinimumDamageMultiplier", 0.10f);
-    if (!std::isfinite(Settings.MinimumDamageMultiplier))
-        Settings.MinimumDamageMultiplier = 0.10f;
-    Settings.MinimumDamageMultiplier = std::clamp(Settings.MinimumDamageMultiplier, 0.01f, 1.0f);
+        std::clamp(sConfigMgr->GetOption<uint32>("Roleplay.DeathKnight.FullDamageScalingLevel", 55), 2u, 55u);
+    Settings.DamageCurveExponent =
+        sConfigMgr->GetOption<float>("Roleplay.DeathKnight.DamageCurveExponent", 1.0f);
+    if (!std::isfinite(Settings.DamageCurveExponent))
+        Settings.DamageCurveExponent = 1.0f;
+    Settings.DamageCurveExponent = std::clamp(Settings.DamageCurveExponent, 0.5f, 2.0f);
     Settings.DelayedAcherusCampaign =
         sConfigMgr->GetOption<bool>("Roleplay.DeathKnight.DelayedAcherusCampaign", true);
     // Stock intro quests require 55; lowering only the teleport level strands the character.
